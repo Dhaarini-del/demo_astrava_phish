@@ -1,0 +1,13 @@
+.phishing-tooltip {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+#phishing-warning-overlay button {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#phishing-legend {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
