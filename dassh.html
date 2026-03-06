@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SecureNet Dashboard</title>
+
+<style>
+
+*{
+margin:10px;
+padding:10px;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Smooth page load */
+body{
+height:100vh;
+display:flex;
+background:linear-gradient(rgba(15,32,39,0.5),rgba(44,83,100,0.5)),
+url("cyber.jpeg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+color:white;
+
+animation:fadeIn 1.2s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* LEFT TEXT SECTION */
+
+.left{
+
+width:45%;
+padding:80px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+
+}
+
+.left h1{
+
+font-size:48px;
+margin-bottom:20px;
+color:#4fd1ff;
+text-shadow:0 0 15px rgba(0,0,0,0.6);
+
+}
+
+.left p{
+
+font-size:20px;
+line-height:1.6;
+color:#d9f2ff;
+text-shadow:0 0 10px rgba(0,0,0,0.6);
+
+}
+
+/* RIGHT SECTION */
+
+.right{
+
+width:55%;
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+/* SCAN BUTTONS */
+
+.scan-buttons{
+
+margin-top:0;
+
+}
+
+.btn{
+
+text-decoration:none;
+padding:12px 25px;
+border-radius:6px;
+color:white;
+font-weight:600;
+margin-right:15px;
+display:inline-block;
+transition:0.3s;
+font-size:16px;
+
+}
+
+.url-btn{
+
+background:#2ecc71;
+
+}
+
+.url-btn:hover{
+
+background:#27ae60;
+transform:scale(1.05);
+
+}
+
+.email-btn{
+
+background:#3498db;
+
+}
+
+.email-btn:hover{
+
+background:#2980b9;
+transform:scale(1.05);
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="left">
+
+<h1>AI Powered Phishing Detection System</h1>
+
+<p>
+Detect malicious URLs and phishing emails instantly using machine learning.
+Protect users from cyber threats with intelligent real-time analysis.
+</p>
+
+<div class="scan-buttons">
+<a href="url.html" class="btn url-btn"> Scan URL</a>
+<a href="email.html" class="btn email-btn">Scan Email</a>
+</div>
+
+</div>
+
+<div class="right">
+
+</div>
+
+</body>
+</html>
