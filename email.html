@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -395,4 +396,403 @@ document.getElementById("resultBox").style.display="block";
 </script>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SecureNet Email Scanner</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.backBtn{
+position:absolute;
+top:20px;
+left:20px;
+padding:10px 18px;
+border:none;
+border-radius:8px;
+background:#38bdf8;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.topTitle{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:42px;
+font-weight:bold;
+letter-spacing:2px;
+color:white;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background: linear-gradient(
+270deg,
+#0f172a,
+#1e3a8a,
+#2563eb,
+#7c3aed,
+#0f172a
+);
+
+background-size:1000% 1000%;
+animation:gradientMove 12s ease infinite;
+color:white;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.scannerBox{
+width:900px;
+padding:30px;
+border-radius:15px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+margin-top:250px; /* moved box down */
+}
+
+.inputBox{
+text-align:center;
+margin-bottom:20px;
+}
+
+textarea{
+width:70%;
+height:120px;
+padding:12px;
+border-radius:8px;
+border:none;
+outline:none;
+font-size:15px;
+resize:none;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:8px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+.resultBox{
+display:none;
+margin-top:20px;
+padding:20px;
+border-radius:10px;
+background:white;
+color:black;
+}
+
+.resultFlex{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.resultText{
+flex:1;
+}
+
+.resultGraph{
+width:250px;
+text-align:center;
+}
+
+canvas{
+width:200px !important;
+height:200px !important;
+}
+
+.riskBar{
+width:100%;
+height:12px;
+background:#ddd;
+border-radius:10px;
+margin:10px 0;
+}
+
+.riskFill{
+height:100%;
+width:0%;
+border-radius:10px;
+transition:width 1s;
+}
+
+.checkedEmail{
+margin-top:20px;
+padding:12px;
+border-radius:8px;
+background:#f1f5f9;
+font-size:14px;
+}
+
+ul{
+margin-top:10px;
+}
+
+li{
+margin-bottom:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="backBtn" onclick="history.back()">⬅ Back</button>
+
+<div class="topTitle">SecureNet</div>
+
+<div class="scannerBox">
+
+<div class="inputBox">
+
+<h2>Phishing Email Detector</h2>
+<br>
+
+<textarea id="emailInput" placeholder="Paste Email Content"></textarea>
+<br>
+
+<button onclick="analyzeEmail()">Analyze Email</button>
+
+</div>
+
+<div id="resultBox" class="resultBox">
+
+<div class="resultFlex">
+
+<div class="resultText">
+
+<h3 id="resultTitle"></h3>
+
+<p><b>Risk Level:</b> <span id="riskLevel"></span></p>
+
+<div class="riskBar">
+<div id="riskFill" class="riskFill"></div>
+</div>
+
+<h4>Reasons</h4>
+<ul id="reasonList"></ul>
+
+<br>
+
+<h4>Prediction Accuracy</h4>
+<p id="accuracyText"></p>
+
+</div>
+
+<div class="resultGraph">
+<canvas id="accuracyChart"></canvas>
+</div>
+
+</div>
+
+<div class="checkedEmail">
+<b>Checked Email Message:</b>
+<p id="checkedEmail"></p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let chart;
+
+function analyzeEmail(){
+
+let email=document.getElementById("emailInput").value.toLowerCase();
+
+if(email===""){
+alert("Paste email content");
+return;
+}
+
+let risk=0;
+let reasons=[];
+
+/* Suspicious Links */
+
+if(email.includes("http://") || email.includes("bit.ly") || email.includes("tinyurl")){
+risk+=35;
+reasons.push("The email contains suspicious or shortened links that may redirect to phishing websites.");
+}
+
+/* Financial Information */
+
+if(
+email.includes("bank") ||
+email.includes("account") ||
+email.includes("password") ||
+email.includes("credit") ||
+email.includes("bank details") ||
+email.includes("submit your details") ||
+email.includes("verify account")
+){
+risk+=30;
+reasons.push("The email asks for sensitive financial information which is a common phishing tactic.");
+}
+
+/* Tax Refund Scam */
+
+if(
+email.includes("tax refund") ||
+email.includes("income tax") ||
+email.includes("refund") ||
+email.includes("eligible for")
+){
+risk+=30;
+reasons.push("The email claims a tax refund or government payment which is frequently used in phishing scams.");
+}
+
+/* Urgency Detection */
+
+if(
+email.includes("urgent") ||
+email.includes("immediately") ||
+email.includes("today") ||
+email.includes("within 24 hours")
+){
+risk+=15;
+reasons.push("The message creates urgency to pressure users into acting quickly.");
+}
+
+/* OTP / Verification */
+
+if(
+email.includes("otp") ||
+email.includes("verification code") ||
+email.includes("confirm identity")
+){
+risk+=25;
+reasons.push("The email requests OTP or verification codes which attackers use to gain account access.");
+}
+
+/* Generic Greeting */
+
+if(email.includes("dear user") || email.includes("dear customer")){
+risk+=15;
+reasons.push("Generic greeting detected which is common in mass phishing campaigns.");
+}
+
+if(risk>100) risk=100;
+
+let title=document.getElementById("resultTitle");
+let riskLevel=document.getElementById("riskLevel");
+let riskFill=document.getElementById("riskFill");
+
+let accuracy;
+
+if(risk>=70){
+
+title.innerHTML="⚠ Phishing Email Detected!";
+title.style.color="#ef4444";
+
+riskLevel.innerText="High";
+riskFill.style.background="#ef4444";
+
+accuracy=92;
+
+}
+
+else if(risk>=40){
+
+title.innerHTML="⚠ Suspicious Email";
+title.style.color="#f59e0b";
+
+riskLevel.innerText="Medium";
+riskFill.style.background="#f59e0b";
+
+accuracy=85;
+
+}
+
+else{
+
+title.innerHTML="✔ Email Looks Safe";
+title.style.color="#22c55e";
+
+riskLevel.innerText="Low";
+riskFill.style.background="#22c55e";
+
+accuracy=96;
+
+}
+
+riskFill.style.width=risk+"%";
+
+let list="";
+reasons.forEach(r=>{
+list+="<li>"+r+"</li>";
+});
+
+document.getElementById("reasonList").innerHTML=list;
+
+document.getElementById("accuracyText").innerHTML="Model Confidence: "+accuracy+"%";
+
+document.getElementById("checkedEmail").innerText=email;
+
+let ctx=document.getElementById("accuracyChart").getContext("2d");
+
+if(chart){
+chart.destroy();
+}
+
+chart=new Chart(ctx,{
+type:'doughnut',
+data:{
+labels:["Accuracy","Error"],
+datasets:[{
+data:[accuracy,100-accuracy],
+backgroundColor:["#22c55e","#ef4444"],
+borderWidth:0
+}]
+},
+options:{
+cutout:"65%",
+plugins:{
+legend:{
+position:"bottom"
+}
+}
+}
+});
+
+document.getElementById("resultBox").style.display="block";
+
+}
+
+</script>
+
+</body>
+>>>>>>> 290b0bfac32fa1066b79f7e4ee681dc089da4466
 </html>

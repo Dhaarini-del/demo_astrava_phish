@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,4 +102,109 @@ window.location.href="dassh.html";
 </script>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SecureNet</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Full page setup */
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+
+/* Animated gradient background */
+
+background: linear-gradient(
+270deg,
+#0f172a,
+#1e3a8a,
+#2563eb,
+#7c3aed,
+#0f172a
+);
+
+background-size: 1000% 1000%;
+
+animation: gradientMove 12s ease infinite;
+transition: opacity 1.5s ease;
+}
+
+/* Smooth background animation */
+
+@keyframes gradientMove {
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* Welcome text */
+
+h1{
+font-size:70px;
+letter-spacing:2px;
+text-shadow:0px 0px 20px rgba(0,0,0,0.6);
+}
+
+p{
+margin-top:20px;
+font-size:20px;
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div>
+
+<h1>Welcome to SecureNet</h1>
+
+<p>AI Powered Phishing Protection</p>
+
+</div>
+
+<script>
+
+setTimeout(function(){
+
+document.body.style.opacity="0";   // fade out effect
+
+setTimeout(function(){
+window.location.href="dassh.html";
+},1500);
+
+},5000);
+
+</script>
+
+</body>
+>>>>>>> 290b0bfac32fa1066b79f7e4ee681dc089da4466
 </html>
